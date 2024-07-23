@@ -49,6 +49,36 @@ The server handles:
 - The server processes these events and stores them in the database.
 - Clients can query the server to search for stored events.
 
+### API Endpoints
+
+### POST /webhook
+Receives webhook payloads from ZeroTier Central.
+
+### Request Body:
+The request body should contain the webhook payload in JSON format.
+
+### Response:
+- `200 OK`: Webhook processed successfully
+- `400 Bad Request`: Error reading request body
+- `500 Internal Server Error`: Error processing payload
+
+### GET /search
+Searches for stored events based on provided query parameters.
+
+### Query Parameters:
+- `network_id` (optional): Filter events by network ID
+- `member_id` (optional): Filter events by member ID
+- `user_id` (optional): Filter events by user ID
+
+### Response:
+- `200 OK`: Returns a JSON array of matching events
+- `500 Internal Server Error`: Error occurred while fetching events
+
+### Example:
+```bash
+curl -X GET "http://localhost:8080/search?network_id=8056c2e21c000001&member_id=12345&user_id=user@example.com"
+```
+
 ### Project Structure
 
 - `cmd/`: Contains the main application code.
